@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from sqlmodel import SQLModel
 from config.db import engine
 from models.url_model import Link  # Si no se importa esto, no se crea la tabla
+from routers import links
 
 # El ciclo de vida de la app
 @asynccontextmanager
@@ -20,6 +21,8 @@ app = FastAPI(
     version="1.0.0",
     lifespan=lifespan
 )
+
+app.include_router(links.router, prefix="/links", tags=["links"])
 
 @app.get("/")
 async def home():

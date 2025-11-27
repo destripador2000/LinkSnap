@@ -1,10 +1,9 @@
 from datetime import datetime
 from typing import Optional
-from sqlmodel import Field
+from sqlmodel import Field, SQLModel
 
 # Creando tabla Link para almacenar los links que entrarán
-class Link:
-    __tablename__ = 'links'
+class Link(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     original_url: str
     short_code: str = Field(unique=True, index=True)
