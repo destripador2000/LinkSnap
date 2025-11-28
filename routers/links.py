@@ -37,4 +37,7 @@ async def get_link_by_short_code(short_code: str,
     if link_found is None:
         raise HTTPException(status_code=404, detail="Link Not Found")
 
+    link_found.visit_count += 1
+    session.add(link_found)
+    await session.commit()
     return RedirectResponse(link_found.original_url)
